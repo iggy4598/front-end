@@ -11,7 +11,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    sessionStorage.setItem("token"); //put tokenhere
+    sessionStorage.setItem("token", result.payload.token); //put tokenhere
     navigate("/");
   };
 

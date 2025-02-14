@@ -8,13 +8,15 @@ import {
 import Registration from "./components/registration";
 import Login from "./components/login";
 import "./App.css";
+import Home from "./components/home";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/register" element={<Registration />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Registration />} />
       </Routes>
     </Router>
   );
