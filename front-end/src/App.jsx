@@ -1,25 +1,22 @@
-import { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Registration from "./components/registration";
-import Login from "./components/login";
-import "./App.css";
-import Home from "./components/home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Registration from "./components/Registration";
+import SingleUser from "./components/SingleUser";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
+        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/user/:id" element={<ProtectedRoute><SingleUser /></ProtectedRoute>} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;
