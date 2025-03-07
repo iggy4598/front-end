@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 import { updateUser } from "../redux/slices/usersSlice";
+
+const API_BASE_URL = "http://localhost:3000/api";
 
 const SingleUser = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users.users);
-  const user = users.find((user) => user.id === id);
+  const token = sessionStorage.getItem("token");
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -16,27 +18,48 @@ const SingleUser = () => {
     email: "",
   });
 
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      });
-    }
-  }, [user]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
+  useEffect(() => {
+    axios
+      .get(`${API_BASE_URL}/users/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setFormData({
+          firstName: response.data.firstName,
+          lastName: response.data.lastName,
+          email: response.data.email,
+        });
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError("User not found.");
+        setLoading(false);
+      });
+  }, [id, token]);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUser({ id, userData: formData }));
-    navigate("/home");
+    axios
+      .put(
+        `${API_BASE_URL}/users/${id}`,
+        formData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then((response) => {
+        dispatch(updateUser(response.data));
+        navigate("/home");
+      })
+      .catch((error) => setError("Error updating user."));
   };
 
-  if (!user) return <p>User not found.</p>;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div>

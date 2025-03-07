@@ -20,8 +20,8 @@ const Registration = () => {
     e.preventDefault();
     dispatch(registerUser(formData)).then((result) => {
       if (result.payload && result.payload.token) {
-        navigate("/");
-      }
+        navigate("/home");
+  };
     });
   };
 

@@ -92,3 +92,10 @@ input {
 .read-the-docs {
   color: #888;
 }
+
+.top {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+}
