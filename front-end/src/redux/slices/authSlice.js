@@ -27,6 +27,22 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async (profileData, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        `/api/users/${profileData.id}`,
+        profileData,
+        { headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` } }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -51,10 +67,16 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.user = action.payload.user;
       })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
       .addCase(registerUser.rejected, (state, action) => {
         state.error = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
         state.error = action.payload;
       });
   },

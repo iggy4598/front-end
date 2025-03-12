@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { updateUser } from "../redux/slices/usersSlice";
+import { updateProfile } from "../redux/slices/authSlice";
 
 const API_BASE_URL = "http://localhost:3000/api";
 
@@ -39,6 +39,7 @@ const SingleUser = () => {
         setLoading(false);
       });
   }, [id, token]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -52,8 +53,8 @@ const SingleUser = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
-        dispatch(updateUser(response.data));
-        navigate("/home");
+        dispatch(updateProfile({ id, ...formData }));
+        navigate("/profile"); 
       })
       .catch((error) => setError("Error updating user."));
   };

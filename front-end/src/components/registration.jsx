@@ -1,60 +1,69 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { registerUser } from "../redux/slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
-    email: "",
     firstName: "",
     lastName: "",
-    password: "",
+    email: "",
+    password: ""
   });
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-  const handleSubmit = (e) => {
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(registerUser(formData)).then((result) => {
-      if (result.payload && result.payload.token) {
-        navigate("/home");
-  };
-    });
+    setError("");
+    const result = await dispatch(registerUser(formData));
+    if (result.error) {
+      setError("Registration failed. Please try again.");
+    } else {
+      navigate("/home");
+    }
   };
 
   return (
     <div>
       <h2>Register</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="firstName"
           placeholder="First Name"
-          onChange={handleChange}
+          value={formData.firstName}
+          onChange={(e) =>
+            setFormData({ ...formData, firstName: e.target.value })
+          }
           required
         />
         <input
           type="text"
-          name="lastName"
           placeholder="Last Name"
-          onChange={handleChange}
+          value={formData.lastName}
+          onChange={(e) =>
+            setFormData({ ...formData, lastName: e.target.value })
+          }
           required
         />
         <input
           type="email"
-          name="email"
           placeholder="Email"
-          onChange={handleChange}
+          value={formData.email}
+          onChange={(e) =>
+            setFormData({ ...formData, email: e.target.value })
+          }
           required
         />
         <input
           type="password"
-          name="password"
           placeholder="Password"
-          onChange={handleChange}
+          value={formData.password}
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
           required
         />
         <button type="submit">Register</button>

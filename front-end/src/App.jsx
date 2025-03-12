@@ -1,23 +1,59 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/home";
-import Login from "./components/login";
-import Registration from "./components/registration";
-import SingleItem from "./components/singleItem";
-import SingleUser from "./components/singleUser";
-import ProtectedRoute from "./components/ProtectedRoute";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import AuthLanding from "./components/AuthLanding.jsx";
+import Home from "./components/Home.jsx";
+import SingleItem from "./components/singleItem.jsx";
+import AllReviews from "./components/AllReviews.jsx";
+import Login from "./components/login.jsx";
+import Registration from "./components/Registration.jsx";
+import Profile from "./components/Profile.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ReviewsList from "./components/ReviewsList.jsx";
+import WriteReview from "./components/writeReview.jsx";
+import SingleUser from "./components/singleUser.jsx";
 
-const App = () => {
+function App() {
   return (
-    <Router>
-      <Routes>
-      <Route path="/" element={<Home />} />
+    <Routes>
+      <Route path="/" element={<AuthLanding />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/items/:id" element={<SingleItem />} />
+      <Route path="/reviews" element={<AllReviews />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Registration />} />
-      <Route path="/items/:id" element={<ProtectedRoute><SingleItem /></ProtectedRoute>} />
-      <Route path="/user/:id" element={<ProtectedRoute><SingleUser /></ProtectedRoute>} /> 
-      </Routes>
-    </Router>
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-reviews"
+        element={
+          <ProtectedRoute>
+            <ReviewsList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/items/:id/write-review"
+        element={
+          <ProtectedRoute>
+            <WriteReview />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/users/:id"
+        element={
+          <ProtectedRoute>
+            <SingleUser />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
-};
-
+}
 export default App;
