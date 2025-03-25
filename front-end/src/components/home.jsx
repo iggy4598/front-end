@@ -14,7 +14,9 @@ const Home = () => {
     try {
       let url = "/api/items";
       if (searchQuery || categoryFilter) {
-        url = `/api/search?query=${encodeURIComponent(searchQuery)}&category=${encodeURIComponent(categoryFilter)}`;
+        url = `/api/search?query=${encodeURIComponent(
+          searchQuery
+        )}&category=${encodeURIComponent(categoryFilter)}`;
       }
       const response = await axios.get(url);
       setItems(response.data);
@@ -55,7 +57,13 @@ const Home = () => {
             <h3>{item.name}</h3>
             <p>{item.description}</p>
             <p>Average Rating: {item.averageRating}</p>
-            {item.image && <img src={item.image} alt={item.name} style={{ width: "200px" }} />}
+            {item.image && (
+              <img
+                src={item.image}
+                alt={item.name}
+                style={{ width: "200px" }}
+              />
+            )}
           </div>
         ))}
       </div>

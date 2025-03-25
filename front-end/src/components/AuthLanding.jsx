@@ -34,7 +34,7 @@ const AuthLanding = () => {
     if (result.error) {
       setAuthError("Login failed.");
     } else {
-      navigate("/my-reviews");
+      navigate("/home");
     }
   };
 
@@ -122,12 +122,19 @@ const AuthLanding = () => {
           <button type="submit">Register</button>
         </form>
       )}
-      <h2>Dummy Items</h2>
+      <h2>Shoes</h2>
       {loadingItems ? (
         <p>Loading items...</p>
       ) : (
         items.map((item) => (
-          <div key={item.id} style={{ border: "1px solid #ccc", margin: "10px", padding: "10px" }}>
+          <div
+            key={item.id}
+            style={{
+              border: "1px solid #ccc",
+              margin: "10px",
+              padding: "10px",
+            }}
+          >
             <h3>{item.name}</h3>
             <p>{item.description}</p>
             <p>Average Rating: {item.averageRating}</p>

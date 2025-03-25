@@ -31,7 +31,7 @@ const WriteReview = () => {
       <form onSubmit={handleSubmit}>
         <input type="number" name="rating" placeholder="Rating (1-5)" value={review.rating} onChange={handleChange} required min="1" max="5" />
         <textarea name="text" placeholder="Your review" value={review.text} onChange={handleChange} required />
-        <input type="text" name="image" placeholder="Image URL (optional)" value={review.image} onChange={handleChange} />
+        <input type="text" name="image" placeholder="shoe picture (optional)" value={review.image} onChange={handleChange} />
         <button type="submit">Submit Review</button>
       </form>
     </div>

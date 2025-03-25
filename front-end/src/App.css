@@ -1,6 +1,46 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+  color: #333;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  text-align: center;
+  margin-top: 20px;
+}
+
+header {
+  background: #333;
+  color: #fff;
+  padding: 15px 0;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input, textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 button {
@@ -11,12 +51,17 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
+  color: #fff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.25s, border-color 0.25s;
+  margin-top: 10px;
 }
+
 button:hover {
+  background-color: #333;
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -32,29 +77,39 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+    color: #1a1a1a;
+  }
+  button:hover {
+    background-color: #e0e0e0;
   }
 }
 
-.container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background: white;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+.review-card {
+  border: 1px solid #ddd;
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 15px 0;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.review-card h3 {
+  margin-top: 0;
+  color: #333;
 }
 
-input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.review-card p {
+  color: #555;
+  line-height: 1.5;
+}
+
+.review-card .rating {
+  font-size: 1.2em;
+  color: #f39c12;
+  font-weight: bold;
+}
+
+.card {
+  padding: 2em;
 }
 
 .logo {
@@ -63,9 +118,11 @@ input {
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -85,10 +142,6 @@ input {
   }
 }
 
-.card {
-  padding: 2em;
-}
-
 .read-the-docs {
   color: #888;
 }
@@ -97,5 +150,21 @@ input {
   position: fixed;
   bottom: 0;
   right: 0;
-  width: 300px;
-}
+  width: 300px;}
+
+  .shoe-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .navbar {
+    display: flex;
+    gap: 20px;
+    padding: 100px;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: inherit;
+  }
