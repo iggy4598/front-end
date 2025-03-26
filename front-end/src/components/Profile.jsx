@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance"; 
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -7,7 +7,7 @@ const Profile = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get("/api/aboutMe", {
+      const response = await axiosInstance.get("/api/aboutMe", {
         headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
       });
       setProfile(response.data);

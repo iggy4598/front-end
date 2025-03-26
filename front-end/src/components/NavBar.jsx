@@ -6,11 +6,17 @@ const NavBar = () => {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="nav-link">Home</Link>
+      <Link to="/" className="nav-link" style={{ marginRight: "10px" }}>
+        Home
+      </Link>
       {token && (
-        <Link to="/post-item" className="nav-link">Post New Item</Link>
+        <Link to="/post-item" className="nav-link" style={{ marginRight: "10px" }}>
+          Post New Item
+        </Link>
       )}
-      <Link to="/home" className="nav-link">Main Page</Link>
+      <Link to="/home" className="nav-link" style={{ marginRight: "10px" }}>
+        Main Page
+      </Link>
     </nav>
   );
 };

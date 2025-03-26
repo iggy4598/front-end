@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import { useDispatch } from "react-redux";
 import { loginUser, registerUser } from "../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,7 @@ const AuthLanding = () => {
   const [loadingItems, setLoadingItems] = useState(true);
 
   useEffect(() => {
-    axios
+    axiosInstance
       .get("/api/items")
       .then((response) => setItems(response.data))
       .catch((error) => console.error("Error fetching items:", error))

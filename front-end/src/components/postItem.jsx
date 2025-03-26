@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import { useNavigate } from "react-router-dom";
 
 const PostItem = () => {
@@ -20,7 +20,7 @@ const PostItem = () => {
     e.preventDefault();
     try {
       const token = sessionStorage.getItem("token");
-      await axios.post("/api/items", itemData, {
+      await axiosInstance.post("/api/items", itemData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       navigate("/home");

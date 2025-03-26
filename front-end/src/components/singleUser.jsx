@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import { updateProfile } from "../redux/slices/authSlice";
-
-const API_BASE_URL = "http://localhost:3000/api";
 
 const SingleUser = () => {
   const { id } = useParams();
@@ -22,8 +20,8 @@ const SingleUser = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${API_BASE_URL}/users/${id}`, {
+    axiosInstance
+      .get(`/api/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -46,15 +44,15 @@ const SingleUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
+    axiosInstance
       .put(
-        `${API_BASE_URL}/users/${id}`,
+        `/api/users/${id}`,
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
         dispatch(updateProfile({ id, ...formData }));
-        navigate("/profile"); 
+        navigate("/profile");
       })
       .catch((error) => setError("Error updating user."));
   };

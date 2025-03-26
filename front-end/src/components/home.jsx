@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import { useNavigate } from "react-router-dom";
+import PostItem from "./postItem";
 
 const Home = () => {
   const [items, setItems] = useState([]);
@@ -8,6 +9,7 @@ const Home = () => {
   const [categoryFilter, setCategoryFilter] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showPostItem, setShowPostItem] = useState(false);
   const navigate = useNavigate();
 
   const fetchItems = async () => {
@@ -18,7 +20,7 @@ const Home = () => {
           searchQuery
         )}&category=${encodeURIComponent(categoryFilter)}`;
       }
-      const response = await axios.get(url);
+      const response = await axiosInstance.get(url);
       setItems(response.data);
     } catch (err) {
       setError("Failed to load items.");
@@ -51,6 +53,14 @@ const Home = () => {
           onChange={(e) => setCategoryFilter(e.target.value)}
         />
       </div>
+
+      <div>
+        <button onClick={() => setShowPostItem(!showPostItem)}>
+          {showPostItem ? "Hide Item" : "Post Item"}
+        </button>
+        {showPostItem && <PostItem />}
+      </div>
+
       <div>
         {items.map((item) => (
           <div key={item.id} onClick={() => navigate(`/items/${item.id}`)}>

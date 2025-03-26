@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
-  const response = await axios.get("/api/admin/users", {
+  const response = await axiosInstance.get("/api/admin/users", {
     headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
   });
   return response.data;

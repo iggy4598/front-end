@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/api/register", userData);
+      const response = await axiosInstance.post("/api/register", userData);
       sessionStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
@@ -18,7 +18,7 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/api/login", credentials)
+      const response = await axiosInstance.post("/api/login", credentials);
       sessionStorage.setItem("token", response.data.token);
       return response.data;
     } catch (error) {
@@ -31,7 +31,7 @@ export const updateProfile = createAsyncThunk(
   "auth/updateProfile",
   async (profileData, { rejectWithValue }) => {
     try {
-      const response = await axios.put(
+      const response = await axiosInstance.put(
         `/api/users/${profileData.id}`,
         profileData,
         { headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` } }
